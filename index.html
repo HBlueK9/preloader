@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="test.css">
+    <title>Preloader</title>
+
+</head>
+
+<body>
+    <div id="preloader" class="introduction">
+        <p id="changingText"><span></span>Hola</p>
+        <svg id="preloader-svg">
+            <path id="path"></path>
+        </svg>
+    </div>
+    <script>
+        const words = ["Hello", "Bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten tag", "Hallo"];
+        let wordIndex = 0;
+
+        const changingText = document.getElementById("changingText");
+
+        function changeText() {
+            // Antes de cambiar el texto, oculta el elemento con opacidad 0.
+            changingText.style.opacity = 0;
+
+            // Actualiza el contenido del elemento con la siguiente palabra en el array words.
+            changingText.innerHTML = `<span></span>${words[wordIndex]}`;
+
+            // Aplica el efecto de entrada utilizando Framer Motion.
+            changingText.style.opacity = 0.75;
+
+            // Incrementa el índice de la palabra para la próxima vez.
+            wordIndex = (wordIndex + 1) % words.length;
+
+            // Si hemos llegado a la última palabra, detén el intervalo.
+            if (wordIndex === 0) {
+                clearInterval(intervalId);
+            }
+        }
+
+        // Llama a la función de cambio de texto cada cierto tiempo (por ejemplo, cada 1500 milisegundos).
+        const intervalId = setInterval(changeText, 300);
+
+
+    </script>
+
+</body>
+
+</html>
